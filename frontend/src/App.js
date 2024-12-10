@@ -8,7 +8,9 @@ import EventDetailPage from "./pages/EventDetail";
 import NewEventPage from "./pages/NewEvent";
 import EditEventPage from "./pages/EditEvent";
 import NotFoundPage from './pages/NotFound.jsx'
-import MainNavigation from "./components/MainNavigation.js";
+import RootLayout from "./pages/Root.jsx";
+import EventsRootLayout from "./pages/EventsRoot.jsx";
+
 
 // 1. Add five new (dummy) page components (content can be simple <h1> elements)
 //    - HomePage
@@ -34,12 +36,14 @@ function App() {
   return (
     <div>
       <Routes>
-        <Route path="/" element={<MainNavigation/>}>
+        <Route path="/" element={<RootLayout />}>
           <Route index element={<HomePage />} />
-          <Route path="/events" element={<EventsPage />} />
-          <Route path="/events/:eventsId" element={<EventDetailPage />} />
-          <Route path="/events/new" element={<NewEventPage />} />
-          <Route path="/events/:eventsId/edit" element={<EditEventPage />} />
+          <Route path="events" element={<EventsRootLayout />}>
+            <Route index element={<EventsPage />} />
+            <Route path=":eventId" element={<EventDetailPage />} />
+            <Route path="new" element={<NewEventPage />} />
+            <Route path=":eventId/edit" element={<EditEventPage />} />
+          </Route>
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
