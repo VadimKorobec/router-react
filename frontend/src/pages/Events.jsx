@@ -3,7 +3,14 @@ import { useLoaderData } from "react-router";
 import EventsList from "../components/EventsList";
 
 const EventsPage = () => {
-  const events = useLoaderData();
+  const data = useLoaderData();
+  console.log(data);
+
+  // if (data.isError) {
+  //   return <p>{data.message}</p>;
+  // }
+
+  const events = data.events;
 
   return (
     <>

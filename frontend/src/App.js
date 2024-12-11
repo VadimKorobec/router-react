@@ -1,30 +1,21 @@
-// Challenge / Exercise
-
 import { createBrowserRouter, RouterProvider } from "react-router";
+
+import { fetchEvents } from "./api/api.js";
 
 import HomePage from "./pages/Home";
 import EventsPage from "./pages/Events";
 import EventDetailPage from "./pages/EventDetail";
 import NewEventPage from "./pages/NewEvent";
 import EditEventPage from "./pages/EditEvent";
-import NotFoundPage from "./pages/NotFound.jsx";
 import RootLayout from "./pages/Root.jsx";
 import EventsRootLayout from "./pages/EventsRoot.jsx";
-
-const fetchEvents = async () => {
-  const response = await fetch("http://localhost:8080/events");
-
-  if (!response.ok) {
-  }
-
-  const resData = await response.json();
-  return resData.events;
-};
+import ErrorPage from "./pages/Error.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
+    errorElement: <ErrorPage />,
     children: [
       { index: true, element: <HomePage /> },
       {
@@ -39,7 +30,6 @@ const router = createBrowserRouter([
       },
     ],
   },
-  { path: "*", element: <NotFoundPage /> },
 ]);
 
 function App() {
