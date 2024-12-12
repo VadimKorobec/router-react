@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
 
-import { fetchEvents } from "./api/api.js";
+import { fetchEventDetail, fetchEvents } from "./api/api.js";
 
 import HomePage from "./pages/Home";
 import EventsPage from "./pages/Events";
@@ -23,9 +23,18 @@ const router = createBrowserRouter([
         element: <EventsRootLayout />,
         children: [
           { index: true, element: <EventsPage />, loader: fetchEvents },
-          { path: ":eventId", element: <EventDetailPage /> },
+          {
+            path: ":eventId",
+            loader: fetchEventDetail,
+            children: [
+              {
+                index: true,
+                element: <EventDetailPage />,
+              },
+              { path: "edit", element: <EditEventPage /> },
+            ],
+          },
           { path: "new", element: <NewEventPage /> },
-          { path: ":eventId/edit", element: <EditEventPage /> },
         ],
       },
     ],
