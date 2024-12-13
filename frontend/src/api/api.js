@@ -32,6 +32,7 @@ export const fetchEventDetail = async ({ request, params }) => {
 };
 
 export const sendEvent = async ({ request, params }) => {
+  const method = request.method;
   const data = await request.formData();
 
   const eventData = {
@@ -41,8 +42,15 @@ export const sendEvent = async ({ request, params }) => {
     description: data.get("description"),
   };
 
-  const response = await fetch("http://localhost:8080/events", {
-    method: "POST",
+  let url = "http://localhost:8080/events";
+
+  if (method === "PATCH") {
+    const eventId = params.eventId;
+    url = `http://localhost:8080/events/${eventId}`;
+  }
+
+  const response = await fetch(url, {
+    method: method,
     headers: {
       "Content-Type": "application/json",
     },
@@ -76,4 +84,13 @@ export const removeEventId = async ({ params, request }) => {
   }
 
   return redirect("/events");
+};
+
+export const newsletterAction = async ({ request }) => {
+  const data = await request.formData();
+  const email = data.get("email");
+
+  // send to backend newsletter server ...
+  console.log(email);
+  return { message: "Signup successful!" };
 };

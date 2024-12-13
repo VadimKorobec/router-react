@@ -19,7 +19,7 @@ function EventForm({ method, event }) {
   }
 
   return (
-    <Form method="post" action="/any-other-path" className={classes.form}>
+    <Form method={method}  className={classes.form}>
       {data && data.errors && (
         <ul>
           {Object.values(data.errors).map((err) => (

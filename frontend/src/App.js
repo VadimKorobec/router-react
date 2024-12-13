@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router";
 import {
   fetchEventDetail,
   fetchEvents,
+  newsletterAction,
   removeEventId,
   sendEvent,
 } from "./api/api.js";
@@ -15,6 +16,7 @@ import EditEventPage from "./pages/EditEvent";
 import RootLayout from "./pages/Root.jsx";
 import EventsRootLayout from "./pages/EventsRoot.jsx";
 import ErrorPage from "./pages/Error.jsx";
+import NewsletterPage from "./pages/Newsletter.jsx";
 
 const router = createBrowserRouter([
   {
@@ -41,12 +43,22 @@ const router = createBrowserRouter([
               {
                 path: "edit",
                 element: <EditEventPage />,
+                action: sendEvent,
               },
             ],
           },
-          { path: "new", element: <NewEventPage />, action: sendEvent },
+          {
+            path: "new",
+            element: <NewEventPage />,
+            action: sendEvent,
+          },
         ],
       },
+      {
+        path: 'newsletter',
+        element: <NewsletterPage />,
+        action: newsletterAction,
+      }
     ],
   },
 ]);
